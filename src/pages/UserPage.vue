@@ -2,7 +2,7 @@
   <div class="user-page">
     <div class="row bg-light shadow">
       <div class="col-md-12 my-5 d-flex justify-content-center">
-        <img src="../assets/img/seej-productions.gif" class="w-75" :alt="my-logo">
+        <img src="../assets/img/seej-productions.gif" class="w-75" alt="my-logo">
       </div>
       <div class="col-md-12 pl-5 mb-5">
         <li>
