@@ -1,15 +1,15 @@
 <template>
-  <div class="col-12" v-for="p in posts.posts" :key="p.id" :post="p">
-    <PostCard :post="p" />
+  <div class="col-12 shadow" v-for="a in aids" :key="a" :aid="a">
+    <Aids :aid="a" />
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'PostsThread',
+  name: 'AidsThread',
   props: {
-    posts: {
+    aids: {
       type: Object,
       required: true
     }

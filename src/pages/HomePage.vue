@@ -1,14 +1,14 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <div class="row my-4">
-      <div class="col-md-8 md-px-5">
+      <div class="col-md-8 md-pl-3">
         <div class="row">
           <div class="col-md-12">
             <div id="create-post" class="row card shadow">
               <div class="col-md-12 ">
                 <div class="row">
                   <div class="col-md-2 m-auto">
-                    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" class="w-100" alt="CodeWorks Logo">
+                    <img :src="account.picture" class="w-100" alt="{{account.name}}">
                   </div>
                   <div class="col-md-8 m-auto">
                     <div class="form-group">
@@ -36,8 +36,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 p-5">
-        <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" class="w-100" alt="CodeWorks Logo">
+      <div class="col-md-4 px-4">
+        <AidsThread :aids="aids" />
       </div>
     </div>
   </div>
@@ -48,6 +48,10 @@ import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { postsService } from '../services/PostsService'
+import PostsThread from '../components/PostsThread.vue'
+import AidsThread from '../components/AidsThread.vue'
+import { aidsService } from '../services/AidsService'
+import AccountPage from './AccountPage.vue'
 
 export default {
   name: 'Home',
@@ -60,9 +64,24 @@ export default {
         Pop.toast(error, 'error')
       }
     })
+    onMounted(async() => {
+      try {
+        await aidsService.getAll()
+      } catch (error) {
+        Pop.toast(error, 'error')
+      }
+    })
+
     return {
-      posts: computed(() => AppState.posts)
+      posts: computed(() => AppState.posts),
+      aids: computed(() => AppState.aids),
+      account: computed(() => AppState.account)
     }
+  },
+  components: {
+    PostsThread,
+    AidsThread,
+    AccountPage
   }
 }
 </script>
