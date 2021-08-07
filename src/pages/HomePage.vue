@@ -51,7 +51,6 @@ import { postsService } from '../services/PostsService'
 import PostsThread from '../components/PostsThread.vue'
 import AidsThread from '../components/AidsThread.vue'
 import { aidsService } from '../services/AidsService'
-import AccountPage from './AccountPage.vue'
 
 export default {
   name: 'Home',
@@ -80,8 +79,7 @@ export default {
   },
   components: {
     PostsThread,
-    AidsThread,
-    AccountPage
+    AidsThread
   }
 }
 </script>
