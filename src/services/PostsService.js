@@ -8,5 +8,8 @@ class PostsService {
     logger.log(res.data)
     AppState.posts = res.data
   }
+  async getByProfileId(id)() {
+    const res = await api.get()
+  }
 }
 export const postsService = new PostsService()
