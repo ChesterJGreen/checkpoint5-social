@@ -11,6 +11,7 @@ class PostsService {
 
   async getByProfileId(id) {
     const res = await api.get()
+    logger.log(res.data)
   }
 }
 export const postsService = new PostsService()
