@@ -18,7 +18,7 @@
               <router-view />
             </div>
 
-            <div class="col-md-4 px-4">
+            <div class="col-md-4 px-4 d-sm-none d-md-block">
               <AidsThread :aids="aids" />
             </div>
           </div>

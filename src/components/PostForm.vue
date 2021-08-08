@@ -35,15 +35,22 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 
 export default {
   name: 'PostForm',
   setup() {
+    const state = reactive({
+      dropOpen: false,
+      newPost: {}
+    })
     return {
-      profile: computed(() => AppState.account)
+      state,
+      profile: computed(() => AppState.account),
+      user: computed(() => AppState.user)
     }
-  }
+  },
+  components: {}
 }
 </script>

@@ -19,5 +19,10 @@ class PostsService {
     logger.log(res)
     AppState.posts = res.data
   }
+
+  async destroy(id) {
+    await api.delete('api/posts' + id)
+    AppState.posts = AppState.posts.filter(p => p.id !== id)
+  }
 }
 export const postsService = new PostsService()

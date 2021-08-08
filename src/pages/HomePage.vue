@@ -2,11 +2,11 @@
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <div class="row my-4">
       <div class="col-md-12">
+        <!-- <div class="row" v-if="user.isAuthenticated">
+              <PostForm />
+            </div> -->
         <div class="row">
-          <div class="col-md-12">
-            <PostForm />
-            <PostsThread :posts="posts" />
-          </div>
+          <PostsThread :posts="posts" />
         </div>
       </div>
     </div>
@@ -19,6 +19,7 @@ import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { postsService } from '../services/PostsService'
 import PostsThread from '../components/PostsThread.vue'
+import PostForm from '../components/PostForm.vue'
 
 export default {
   name: 'Home',
@@ -51,7 +52,8 @@ export default {
     }
   },
   components: {
-    PostsThread
+    PostsThread,
+    PostForm
 
   }
 }
