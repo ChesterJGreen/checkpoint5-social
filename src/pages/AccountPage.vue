@@ -35,6 +35,9 @@
     <p v-else>
       No Resume for Account
     </p>
+    <button class="btn btn-primary">
+          Mobile
+        </button>
   </div>
 </template>
 

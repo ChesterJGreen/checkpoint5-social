@@ -1,61 +1,34 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <div class="row my-4">
-      <div class="col-md-8 md-pl-3">
+      <div class="col-md-12">
         <div class="row">
           <div class="col-md-12">
-            <div id="create-post" class="row card shadow">
-              <div class="col-md-12 ">
-                <div class="row">
-                  <div class="col-md-2 m-auto">
-                    <img :src="account.picture" class="w-100" alt="{{account.name}}">
-                  </div>
-                  <div class="col-md-8 m-auto">
-                    <div class="form-group">
-                      <label for="exampleFormControlTextarea1">Example textarea</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 p-2">
-                    <button type="submit" class="btn btn-success action">
-                      Add Photo/Video
-                    </button>
-                  </div>
-                  <div class="col-md-6 p-2">
-                    <button type="submit" class="btn btn-success action">
-                      Post
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <PostForm />
             <PostsThread :posts="posts" />
           </div>
         </div>
-      </div>
-      <div class="col-md-4 px-4">
-        <AidsThread :aids="aids" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { postsService } from '../services/PostsService'
 import PostsThread from '../components/PostsThread.vue'
-import AidsThread from '../components/AidsThread.vue'
-import { aidsService } from '../services/AidsService'
 
 export default {
   name: 'Home',
 
   setup() {
+    const state = reactive({
+      dropOpen: false,
+      newPost: {}
+    })
+
     onMounted(async() => {
       try {
         await postsService.getAll()
@@ -63,23 +36,23 @@ export default {
         Pop.toast(error, 'error')
       }
     })
-    onMounted(async() => {
-      try {
-        await aidsService.getAll()
-      } catch (error) {
-        Pop.toast(error, 'error')
-      }
-    })
 
     return {
+      state,
       posts: computed(() => AppState.posts),
-      aids: computed(() => AppState.aids),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      async createPost() {
+        try {
+          await postsService.createPost(state.newPost)
+        } catch (e) {
+          Pop.toast(e, 'error')
+        }
+      }
     }
   },
   components: {
-    PostsThread,
-    AidsThread
+    PostsThread
+
   }
 }
 </script>
