@@ -1,9 +1,9 @@
 <template>
-  <div id="create-post" class="row card shadow">
+  <div id="post-form" class="row card shadow">
     <div class="col-md-12 p-4">
       <div class="row">
         <div class="col-md-2 m-auto">
-          <img :src="account.picture" class="w-100" alt="{{account.name}}">
+          <img :src="account.picture" class="w-100" :alt="account.name">
         </div>
         <div class="col-md-8 m-auto p-2">
           <div class="form-group">
@@ -33,3 +33,17 @@
     </div>
   </div>
 </template>
+
+<script>
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+
+export default {
+  name: 'PostForm',
+  setup() {
+    return {
+      profile: computed(() => AppState.account)
+    }
+  }
+}
+</script>

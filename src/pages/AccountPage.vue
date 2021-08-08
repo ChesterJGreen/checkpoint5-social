@@ -36,8 +36,8 @@
       No Resume for Account
     </p>
     <button class="btn btn-primary">
-          Mobile
-        </button>
+      Mobile
+    </button>
   </div>
 </template>
 
