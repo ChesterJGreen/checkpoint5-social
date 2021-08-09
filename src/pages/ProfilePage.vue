@@ -20,7 +20,7 @@ export default {
     const router = useRoute()
     onMounted(async() => {
       try {
-        await postsService.getAll({ creatorId: router.params.id })
+        await postsService.getByProfileId({ creatorId: router.params.id })
       } catch (error) {
         Pop.toast(error, 'error')
       }

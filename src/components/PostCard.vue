@@ -23,6 +23,10 @@
       </div>
       <div class="row">
         <div class="col-md-6 p-2">
+          <small>{{ post.createdAt }}</small>
+          <small v-if="post.createdAt != post.updatedAt"><br>
+            updated: {{ post.updatedAt }}
+          </small>
         </div>
         <div v-if="user.isAuthenticated" class="col-md-6 p-2 pr-5 d-flex justify-content-end">
           <span>{{ post.likes.length }}</span>
@@ -38,7 +42,7 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { postsService } from '../services/PostsService'
 import Pop from '../utils/Notifier'
@@ -52,7 +56,13 @@ export default {
     }
   },
   setup() {
+    const state = reactive({
+      post: {
+        like: ''
+      }
+    })
     return {
+      state,
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       user: computed(() => AppState.user),
@@ -68,7 +78,7 @@ export default {
       },
       async like() {
         try {
-          await postsService.like(this.post.id)
+          await postsService.like(this.post.id, state.post.like)
           Pop.toast('You liked a post', 'success')
         } catch (error) {
           Pop.toast(error, 'error')

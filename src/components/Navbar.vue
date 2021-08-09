@@ -28,6 +28,9 @@
             About
           </router-link>
         </li>
+        <form class="ml-5 d-flex align-self-center">
+          <input type="text" class="align-self-center form-control" id="search" placeholder="Search...">
+        </form>
       </ul>
       <span class="navbar-text">
         <button

@@ -1,5 +1,5 @@
 <template>
-  <div id="post-form" class="row card shadow">
+  <div id="post-form" class="card shadow mb-2">
     <div class="col-md-12 p-4">
       <div class="row">
         <div class="col-md-2 m-auto">
