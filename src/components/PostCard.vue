@@ -30,7 +30,7 @@
         </div>
         <div v-if="user.isAuthenticated" class="col-md-6 p-2 pr-5 d-flex justify-content-end">
           <span>{{ post.likes.length }}</span>
-          <i type="checkbox" class="mdi mdi-24px mdi-heart action text-red" @click="like"></i>
+          <i type="checkbox" class="mdi mdi-24px mdi-heart action text-red" @click.prevent="like"></i>
         </div>
         <div v-else class="col-md-6 p-2 pr-5 d-flex justify-content-end">
           <span>{{ post.likes.length }}</span>
