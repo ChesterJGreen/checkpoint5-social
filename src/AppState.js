@@ -8,5 +8,6 @@ export const AppState = reactive({
   aids: [],
   profile: {},
   post: {},
-  page: 1
+  page: 1,
+  activePosts: []
 })

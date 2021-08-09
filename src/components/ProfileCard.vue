@@ -7,7 +7,7 @@
       </p>
       <img class="rounded" :src="post.creator.picture" alt="" />
       <p v-if="post.creator.class">
-        {{ post.creator.class }}
+        {{ post.creator.class }} : <span v-if="post.creator.graduated"><i class="mdi mdi-24px mdi-school-outline"></i></span>
       </p>
       <p v-else>
         No picture for Profile

@@ -1,10 +1,10 @@
 <template>
   <div class="profile-page container-fluid">
     <div class="row">
-      <ProfileCard :post="post" />
+      <ProfileCard v-for="p in profiles" :key="p.id" :profile="p" />
     </div>
     <div class="row">
-      <PostsThread :posts="posts" />
+      <PostsThread v-for="p in posts.activePosts" :key="p.id" :post="p" />
     </div>
   </div>
 </template>
@@ -17,17 +17,19 @@ import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 export default {
   setup() {
-    const router = useRoute()
+    const route = useRoute()
     onMounted(async() => {
       try {
-        await postsService.getByProfileId({ creatorId: router.params.id })
+        await postsService.getByProfileId(route.params.id)
       } catch (error) {
         Pop.toast(error, 'error')
       }
     })
     return {
+      activePosts: computed(() => AppState.activePosts),
       posts: computed(() => AppState.posts),
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+      profiles: computed(() => AppState.profile)
     }
   }
 }
