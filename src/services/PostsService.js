@@ -27,13 +27,14 @@ class PostsService {
   }
 
   async destroy(id) {
-    await api.delete('api/posts' + id)
-    AppState.posts = AppState.posts.filter(p => p.id !== id)
+    await api.delete('api/posts/' + id)
+    const allPosts = AppState.posts
+    AppState.posts = allPosts.filter(p => p.id !== id)
     await this.getAll()
   }
 
-  async like(id, like) {
-    const res = await api.put('api/posts' + id, like)
+  async like(id) {
+    const res = await api.post(`api/posts/${id}/like`)
     AppState.posts = res.data
   }
 

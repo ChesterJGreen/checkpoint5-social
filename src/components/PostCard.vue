@@ -46,6 +46,7 @@ import { computed, reactive } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { postsService } from '../services/PostsService'
 import Pop from '../utils/Notifier'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'PostCard',
@@ -55,11 +56,9 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     const state = reactive({
-      post: {
-        like: ''
-      }
+      post: props.post
     })
     return {
       state,
@@ -69,7 +68,7 @@ export default {
       async destroy() {
         try {
           if (await Pop.confirm()) {
-            await postsService.destroy(this.post.id)
+            await postsService.destroy(state.post.id)
             Pop.toast('Deleted', 'success')
           }
         } catch (error) {
@@ -78,7 +77,8 @@ export default {
       },
       async like() {
         try {
-          await postsService.like(this.post.id, state.post.like)
+          logger.log(state.post)
+          await postsService.like(state.post._id)
           Pop.toast('You liked a post', 'success')
         } catch (error) {
           Pop.toast(error, 'error')

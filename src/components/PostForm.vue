@@ -25,7 +25,7 @@
           </button>
         </div>
         <div class="col-md-6 p-2">
-          <button type="submit" @submit="createPost" class="btn btn-success action">
+          <button type="submit" @click.prevent="createPost" class="btn btn-success action">
             Post
           </button>
         </div>
