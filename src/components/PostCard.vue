@@ -9,9 +9,9 @@
           </router-link>
         </div>
         <div class="col-md-8 text-left p-3 d-flex align-self-center">
-          <span>{{ post.body }}</span>
+          <span class="text-wrap" style="width text-wrap">{{ post.body }}</span>
         </div>
-        <div v-if="account.id === post.creatorId" class="col-md-2 text-right">
+        <div v-if="account.id === post.creatorId" class="col-md-1 pt-2">
           <i class="mdi mdi-24px mdi-trash-can-outline action" @click="destroy">
           </i>
         </div>
@@ -59,7 +59,7 @@ export default {
       async destroy() {
         try {
           if (await Pop.confirm()) {
-            await postsService.destroy(props.post.creatorId)
+            await postsService.destroy(this.post.id)
             Pop.toast('Deleted', 'success')
           }
         } catch (error) {
@@ -68,8 +68,8 @@ export default {
       },
       async like() {
         try {
-          await postsService.like(props.post.like)
-          Pop.toast('You like a post', 'success')
+          await postsService.like(this.post.id)
+          Pop.toast('You liked a post', 'success')
         } catch (error) {
           Pop.toast(error, 'error')
         }

@@ -20,20 +20,19 @@ class PostsService {
     logger.log(res.data)
   }
 
-  async createPost(post) {
-    const res = await api.post('api/posts', post)
-    logger.log(res)
-    AppState.posts = res.data
+  async createPost(newPost) {
+    const res = await api.post('api/posts', newPost)
+    logger.log(res.data)
+    AppState.posts = AppState.posts.unshift(res.data)
   }
 
   async destroy(id) {
-    await api.delete('api/posts' + id)
+    await api.delete('api/posts/' + id)
     AppState.posts = AppState.posts.filter(p => p.id !== id)
   }
 
   async like(id) {
-    const editedPost = AppState.posts.likes++
-    const res = await api.put('api/posts' + id, editedPost)
+    const res = await api.put('api/posts' + id, id)
     AppState.posts = res.data
   }
 }

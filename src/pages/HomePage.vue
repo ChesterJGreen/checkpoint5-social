@@ -1,10 +1,10 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+  <div class="home">
     <div class="row my-4">
       <div class="col-md-12">
-        <!-- <div class="row" v-if="user.isAuthenticated">
+        <div class="row" v-if="user.isAuthenticated">
           <PostForm />
-        </div> -->
+        </div>
         <div class="row">
           <PostsThread :posts="posts" />
         </div>
@@ -42,6 +42,7 @@ export default {
       state,
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       async createPost() {
         try {
           await postsService.createPost(state.newPost)

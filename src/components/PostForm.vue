@@ -37,9 +37,13 @@
 <script>
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
+import { postsService } from '../services/PostsService'
+import Pop from '../utils/Notifier'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'PostForm',
+
   setup() {
     const state = reactive({
       dropOpen: false,
@@ -47,8 +51,19 @@ export default {
     })
     return {
       state,
-      profile: computed(() => AppState.account),
-      user: computed(() => AppState.user)
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
+      profile: computed(() => AppState.profile),
+      posts: computed(() => AppState.posts),
+      async createPost() {
+        try {
+          logger.log('Creating post')
+          await postsService.createPost(state.newPost)
+          Pop.toast('Post Created', 'success')
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
     }
   },
   components: {}
