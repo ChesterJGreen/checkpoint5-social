@@ -3,8 +3,8 @@
     <div class="row my-4">
       <div class="col-md-12">
         <!-- <div class="row" v-if="user.isAuthenticated">
-              <PostForm />
-            </div> -->
+          <PostForm />
+        </div> -->
         <div class="row">
           <PostsThread :posts="posts" />
         </div>

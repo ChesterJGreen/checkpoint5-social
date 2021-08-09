@@ -1,6 +1,11 @@
 <template>
   <div class="profile-page container-fluid">
-    <PofileCard :post="post" />
+    <div class="row">
+      <ProfileCard />
+    </div>
+    <div class="row">
+      <PostsThread :posts="posts" />
+    </div>
   </div>
 </template>
 
@@ -21,7 +26,7 @@ export default {
       }
     })
     return {
-      post: computed(() => AppState.post)
+      posts: computed(() => AppState.posts)
     }
   }
 }

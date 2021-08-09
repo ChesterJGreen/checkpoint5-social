@@ -4,7 +4,7 @@
   <main>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3">
+        <div class="d-none d-md-block col-md-3">
           <UserPage />
         </div>
         <div class="col-md-9">
@@ -18,7 +18,7 @@
               <router-view />
             </div>
 
-            <div class="col-md-4 px-4 d-sm-none d-md-block">
+            <div class="col-md-4 px-4 d-none d-md-block">
               <AidsThread :aids="aids" />
             </div>
           </div>
