@@ -18,24 +18,28 @@ class PostsService {
   async getByProfileId(id) {
     const res = await api.get(`/api/posts/${id}/posts`)
     logger.log(res.data)
+    AppState.posts = res.data
   }
 
   async createPost(newPost) {
     const res = await api.post('api/posts', newPost)
     logger.log(res.data)
-    AppState.posts = AppState.posts.unshift(res.data)
+    AppState.posts = AppState.posts.posts.unshift(res.data)
+    console.log(res.data)
+    await this.getAll()
   }
 
   async destroy(id) {
     await api.delete('api/posts/' + id)
     const allPosts = AppState.posts
-    AppState.posts = allPosts.filter(p => p.id !== id)
+    AppState.posts = allPosts.posts.filter(p => p.id !== id)
     await this.getAll()
   }
 
   async like(id) {
     const res = await api.post(`api/posts/${id}/like`)
-    AppState.posts = res.data
+    const found = AppState.posts.posts.findIndex(p => p.id === id)
+    AppState.posts.posts.splice(found, 1, res.data)
   }
 
   async olderPost() {

@@ -65,6 +65,7 @@ export default {
       account: computed(() => AppState.account),
       profile: computed(() => AppState.profile),
       user: computed(() => AppState.user),
+      posts: computed(() => AppState.posts),
       async destroy() {
         try {
           if (await Pop.confirm()) {

@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page container-fluid">
     <div class="row">
-      <ProfileCard />
+      <ProfileCard :post="post" />
     </div>
     <div class="row">
       <PostsThread :posts="posts" />

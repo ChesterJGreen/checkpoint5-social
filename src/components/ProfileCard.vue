@@ -1,6 +1,6 @@
 <template>
-  <div id="profile" class="col-md-12 profile-card card shadw my-5">
-    <div class="about text-center">
+  <div id="profile" class="col-md-12 profile-card card shadow my-5">
+    <div v-if="post.creator" class="about text-center">
       <h3>Welcome</h3>
       <p class="text-wrap">
         {{ post.creator.name }}
