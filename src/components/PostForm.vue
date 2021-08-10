@@ -13,6 +13,7 @@
                     required
                     placeholder="Tell us what's going on..."
                     rows="3"
+                    minlength="10"
           ></textarea>
         </div>
       </div>
