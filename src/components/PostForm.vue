@@ -19,12 +19,12 @@
     </div>
     <div class="row">
       <div class="col-md-6 p-2">
-        <button type="submit" @submit="img-modal" class="btn btn-success action">
+        <button type="submit" @click="imgModal" class="btn btn-success action">
           Add Photo/Video
         </button>
       </div>
       <div class="col-md-6 p-2">
-        <button type="submit" @click.prevent="createPost" class="btn btn-success action">
+        <button type="submit" @click="createPost" class="btn btn-success action">
           Post
         </button>
       </div>
@@ -38,6 +38,7 @@ import { AppState } from '../AppState'
 import { postsService } from '../services/PostsService'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'PostForm',
@@ -45,7 +46,10 @@ export default {
   setup() {
     const state = reactive({
       dropOpen: false,
-      newPost: {}
+      newPost: {
+        imgUrl: '',
+        body: ''
+      }
     })
     return {
       state,
@@ -60,6 +64,23 @@ export default {
           Pop.toast('Post Created', 'success')
         } catch (error) {
           Pop.toast(error, 'error')
+        }
+      },
+      async imgModal() {
+        try {
+          logger.log('capturing image')
+          const { value: url } = await Swal.fire({
+            input: 'url',
+            inputLabel: 'URL address',
+            inputPlaceholder: 'Enter the URL'
+          })
+
+          if (url) {
+            Swal.fire(`Entered URL: ${url}`)
+          }
+          state.newPost.imgUrl = url
+        } catch (e) {
+          Pop.toast('could not get picture' + e, 'error')
         }
       }
     }

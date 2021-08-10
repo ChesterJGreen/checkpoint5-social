@@ -23,11 +23,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link text-light">
-            About
-          </router-link>
-        </li>
         <form class="ml-5 d-flex align-self-center">
           <input type="text" class="align-self-center form-control" id="search" v-model="state.input" placeholder="Search...">
           <button @click.prevent="search" class="ml-3 btn btn-info border action">

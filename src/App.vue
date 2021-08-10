@@ -4,8 +4,8 @@
   <main>
     <div class="container-fluid">
       <div class="row">
-        <div class="d-none d-md-block col-md-3">
-          <UserPage />
+        <div class="d-none d-md-block col-md-3 p-0">
+          <AboutPage />
         </div>
         <div class="col-md-9">
           <div class="row">
@@ -35,6 +35,7 @@ import UserPage from './pages/UserPage.vue'
 import AidsThread from './components/AidsThread.vue'
 import { aidsService } from './services/AidsService'
 import Pop from './utils/Notifier'
+import AboutPage from './pages/AboutPage.vue'
 
 export default {
   name: 'App',
@@ -52,7 +53,7 @@ export default {
     }
   },
   components: {
-    UserPage,
+    AboutPage,
     AidsThread
   }
 }
