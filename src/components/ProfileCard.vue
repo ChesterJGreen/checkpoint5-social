@@ -1,37 +1,37 @@
 <template>
   <div id="profile" class="col-md-12 profile-card card shadow my-5">
-    <div v-if="post.creator" class="about text-center">
+    <div v-if="profile" class="about text-center">
       <h3>Welcome</h3>
       <p class="text-wrap">
-        {{ post.creator.name }}
+        {{ profile.name }}
       </p>
-      <img class="rounded" :src="post.creator.picture" alt="" />
-      <p v-if="post.creator.class">
-        {{ post.creator.class }} : <span v-if="post.creator.graduated"><i class="mdi mdi-24px mdi-school-outline"></i></span>
+      <img class="rounded" :src="profile.picture" alt="" />
+      <p v-if="profile.class">
+        {{ profile.class }} : <span v-if="profile.graduated"><i class="mdi mdi-24px mdi-school-outline"></i></span>
       </p>
       <p v-else>
         No picture for Profile
       </p>
-      <p v-if="post.creator.name">
-        {{ post.creator.name }}
+      <p v-if="profile.name">
+        {{ profile.name }}
       </p>
       <p v-else>
         No Name for Profile
       </p>
-      <p v-if="post.creator.github">
-        {{ post.creator.github }}
+      <p v-if="profile.github">
+        {{ profile.github }}
       </p>
       <p v-else>
         No Github for Profile
       </p>
-      <p v-if="post.creator.linkedin">
-        {{ post.creator.linkedin }}
+      <p v-if="profile.linkedin">
+        {{ profile.linkedin }}
       </p>
       <p v-else>
         No LinkedIn for Profile
       </p>
-      <p v-if="post.creator.resume">
-        {{ post.creator.resume }}
+      <p v-if="profile.resume">
+        {{ profile.resume }}
       </p>
       <p v-else>
         No Resume for Profile
@@ -46,15 +46,9 @@ import { AppState } from '../AppState'
 
 export default {
   name: 'ProfileCard',
-  props: {
-    post: {
-      type: Object,
-      required: true
-    }
-  },
   setup() {
     return {
-      profile: computed(() => AppState.account)
+      profile: computed(() => AppState.profile)
     }
   },
   components: {}

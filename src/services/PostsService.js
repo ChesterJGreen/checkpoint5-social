@@ -21,6 +21,12 @@ class PostsService {
     AppState.activePosts = res.data.posts
   }
 
+  async getProfile(id) {
+    const res = await api.get(`api/profiles/${id}`)
+    logger.log(res.data)
+    AppState.profile = res.data
+  }
+
   async createPost(newPost) {
     const res = await api.post('api/posts', newPost)
     logger.log(res.data)

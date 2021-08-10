@@ -1,10 +1,10 @@
 <template>
   <div class="profile-page container-fluid">
     <div class="row">
-      <ProfileCard v-for="p in profiles" :key="p.id" :profile="p" />
+      <ProfileCard />
     </div>
     <div class="row">
-      <PostsThread v-for="p in posts.activePosts" :key="p.id" :post="p" />
+      <ActivePostsThread :posts="activePosts" />
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
     onMounted(async() => {
       try {
         await postsService.getByProfileId(route.params.id)
+        await postsService.getProfile(route.params.id)
       } catch (error) {
         Pop.toast(error, 'error')
       }
@@ -29,7 +30,7 @@ export default {
       activePosts: computed(() => AppState.activePosts),
       posts: computed(() => AppState.posts),
       user: computed(() => AppState.user),
-      profiles: computed(() => AppState.profile)
+      profile: computed(() => AppState.profile)
     }
   }
 }
