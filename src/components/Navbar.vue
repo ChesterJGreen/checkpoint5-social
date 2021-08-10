@@ -29,7 +29,10 @@
           </router-link>
         </li>
         <form class="ml-5 d-flex align-self-center">
-          <input type="text" class="align-self-center form-control" id="search" placeholder="Search...">
+          <input type="text" class="align-self-center form-control" id="search" v-model="state.input" placeholder="Search...">
+          <button @click.prevent="search" class="ml-3 btn btn-info border action">
+            <span>Get those Posts</span>
+          </button>
         </form>
       </ul>
       <span class="navbar-text">
@@ -81,10 +84,14 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import Pop from '../utils/Notifier'
+import { searchsService } from '../services/SearchsService'
+
 export default {
   setup() {
     const state = reactive({
-      dropOpen: false
+      dropOpen: false,
+      input: ''
     })
     return {
       state,
@@ -94,6 +101,13 @@ export default {
       },
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })
+      },
+      async search() {
+        try {
+          await searchsService.search(state.input)
+        } catch (e) {
+          Pop.toast(e, 'error')
+        }
       }
     }
   }

@@ -2,14 +2,14 @@
   <div class="about text-center">
     <h3>Welcome</h3>
     <p class="text-wrap">
-      {{ account.name }}
+      {{ account.email }}
     </p>
     <img class="rounded" :src="account.picture" alt="" />
     <p v-if="account.class">
       {{ account.class }}
     </p>
     <p v-else>
-      No picture for Account
+      No Class
     </p>
     <p v-if="account.name">
       {{ account.name }}
@@ -35,79 +35,9 @@
     <p v-else>
       No Resume for Account
     </p>
-    <button class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarText"
-            aria-controls="navbarText"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-    >
+    <button @click.prevent="AccountEdit" class="btn btn-primary">
       Edit
     </button>
-  </div>
-  <div class="modal fade"
-       id="create-project"
-       tabindex="-1"
-       role="dialog"
-       aria-labelledby="create-project"
-       aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            New Post
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form @submit.prevent="createPost">
-            <div class="form-group">
-              <label class="pr-2" for="title">Title</label>
-              <input type="text"
-                     id="title"
-                     class="form-control"
-                     required
-                     placeholder="Title..."
-                     v-model="state.newPost.title"
-              >
-            </div>
-            <div class="form-group">
-              <label class="pr-2" for="imgUrl">Cover Image</label>
-              <input type="text"
-                     id="imgUrl"
-                     class="form-control"
-                     required
-                     placeholder="Image Url..."
-                     v-model="state.newPost.imgUrl"
-              >
-            </div>
-            <div class="form-group">
-              <label class="pr-2" for="photos">Inspiration Images</label>
-              <textarea type="text"
-                        id="photos"
-                        class="form-control"
-                        placeholder="Image Urls..."
-                        v-model="state.newPost.photoString"
-              ></textarea>
-              <small class="text-muted">add many urls seperated by a line break. Current Photos:</small>
-              <small>{{ photos }}</small>
-            </div>
-            <div>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
