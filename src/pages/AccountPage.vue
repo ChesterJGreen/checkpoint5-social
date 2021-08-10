@@ -120,7 +120,7 @@ export default {
     <div><label>Picture</label> 
     <input id="editpicture" placeholder="${classPicture()}" class="swal2-input" v-model="state.accountInfo.picture"></div> 
     <div><label>Github</label> 
-    <input id="editgithub" placeholder="${classGithub()}" class="swal2-input" v-model="state.accountInfo.github"></div> 
+    <input id="editgithub"  placeholder="${classGithub()}" class="swal2-input" v-model="state.accountInfo.github"></div> 
     <div><label>LinkedIn</label> 
     <input id="editlinkedin" placeholder="${classLinkedin()}" class="swal2-input" v-model="state.accountInfo.linkedin"></div>
     <div><label>Resume</label> 
@@ -140,10 +140,10 @@ export default {
 
           if (formValues) {
             Swal.fire(formValues)
-            this.editAccount()
+            this.editAccount(state.accountInfo)
           }
         } catch (e) {
-          Pop.toast('You Updated Your information')
+          Pop.toast("Didn't work" + e, 'error')
         }
       }
     }
