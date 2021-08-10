@@ -64,5 +64,10 @@ class PostsService {
       newer = res.data.newer
     }
   }
+
+  async editAccount(edit) {
+    const res = await api.put('account', edit)
+    AppState.account = res.data
+  }
 }
 export const postsService = new PostsService()

@@ -1,10 +1,11 @@
 <template>
-  <div class="about text-center">
+  <div class="about text-center mt-5">
     <h3>Welcome</h3>
     <p class="text-wrap">
       {{ account.email }}
     </p>
     <img class="rounded" :src="account.picture" alt="" />
+    <i v-if="account.graduated=true" class="mdi mdi-24px mdi-school-outline"></i>
     <p v-if="account.class">
       {{ account.class }}
     </p>
@@ -35,9 +36,9 @@
     <p v-else>
       No Resume for Account
     </p>
-    <!-- <button data-swal-toast-template="#my-template" @click="updateUser" aria-hidden="true" class="btn btn-primary">
+    <button type="submit" @click.prevent="updateUser" aria-hidden="true" class="btn btn-primary action">
       Edit
-    </button> -->
+    </button>
   </div>
 </template>
 
@@ -46,54 +47,109 @@ import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import Swal from 'sweetalert2'
 import Pop from '../utils/Notifier'
+import { logger } from '../utils/Logger'
+import { postsService } from '../services/PostsService'
 
 export default {
   name: 'Account',
   setup() {
     const state = reactive({
       dropOpen: false,
-      newPost: {}
+      newPost: {},
+      accountInfo: {}
 
     })
     return {
       state,
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      async editAccount() {
+        try {
+          logger.log('editing account')
+          await postsService.editAccount(state.accountInfo)
+          Pop.toast('Account Edited', 'success')
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      },
+      async updateUser() {
+        try {
+          const className = () => {
+            if (this.account.class) {
+              return this.account.class
+            } else {
+              return 'No class'
+            }
+          }
+          const classPicture = () => {
+            if (this.account.picture) {
+              return this.account.picture
+            } else {
+              return 'No Picture'
+            }
+          }
+          const classGithub = () => {
+            if (this.account.github) {
+              return this.account.github
+            } else {
+              return 'No Github'
+            }
+          }
+          const classLinkedin = () => {
+            if (this.account.linkedin) {
+              return this.account.linkedin
+            } else {
+              return 'No Linkedin'
+            }
+          }
+          const classResume = () => {
+            if (this.account.resume) {
+              return this.account.resume
+            } else {
+              return 'No Resume'
+            }
+          }
+
+          logger.log('capturing edit')
+          const { value: formValues } = await Swal.fire({
+            title: 'Edit Account Info',
+            html:
+    `<div><label>Name</label> 
+    <input id="editname" placeholder="${this.account.name}" class="swal2-input" v-model="state.accountInfo.name"></div> 
+    <div><label>Class</label> 
+    <input id="editclass"  placeholder="${className()}" class="swal2-input" v-model="state.accountInfo.class"></div> 
+    <div><label>Picture</label> 
+    <input id="editpicture" placeholder="${classPicture()}" class="swal2-input" v-model="state.accountInfo.picture"></div> 
+    <div><label>Github</label> 
+    <input id="editgithub" placeholder="${classGithub()}" class="swal2-input" v-model="state.accountInfo.github"></div> 
+    <div><label>LinkedIn</label> 
+    <input id="editlinkedin" placeholder="${classLinkedin()}" class="swal2-input" v-model="state.accountInfo.linkedin"></div>
+    <div><label>Resume</label> 
+    <input id="editresume" placeholder="${classResume()}" class="swal2-input" v-model="state.accountInfo.resume"></div>`,
+            focusConfirm: false,
+            preConfirm: () => {
+              return [
+                document.getElementById('editname').value,
+                document.getElementById('editpicture').value,
+                document.getElementById('editgithub').value,
+                document.getElementById('editlinkedin').value,
+                document.getElementById('editresume').value,
+                document.getElementById('editclass').value
+              ]
+            }
+          })
+
+          if (formValues) {
+            Swal.fire(formValues)
+            this.editAccount()
+          }
+        } catch (e) {
+          Pop.toast('You Updated Your information')
+        }
+      }
     }
   },
-  components: {},
-  async updateUser() {
-    try {
-      const graduate = { key: 'graduated', key2: 'non-graduated' }
-      const { value: formValues } = await Swal.fire({
-        title: 'Edit Account Info',
-        html:
-        `<input type="radio" inputOptions: ${graduate}' +
-    <input id="name" class="swal2-input"> +
-    <input id="class" class="swal2-input"> +
-    <input id="picture" class="swal2-input"> +
-    <input id="github" class="swal2-input"> +
-    <input id="linkedin" class="swal2-input"> +
-    <input id="resume" class="swal2-input">`,
-        focusConfirm: false,
-        preConfirm: () => {
-          return [
-            document.getElementById('name').value,
-            document.getElementById('picture').value,
-            document.getElementById('github').value,
-            document.getElementById('linkedin').value,
-            document.getElementById('resume').value,
-            document.getElementById('class').value
-          ]
-        }
-      })
+  components: {}
 
-      if (formValues) {
-        Swal.fire(formValues)
-      }
-    } catch (e) {
-      Pop.toast('You Updated Your information')
-    }
-  }
 }
 </script>
 
