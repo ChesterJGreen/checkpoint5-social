@@ -5,7 +5,7 @@
       <p class="text-wrap">
         {{ profile.name }}
       </p>
-      <img class="rounded-pill" :src="profile.picture" alt="" />
+      <img class="rounded-pill w-50" :src="profile.picture" alt="" />
       <p v-if="profile.class">
         {{ profile.class }} : <span v-if="profile.graduated"><i class="mdi mdi-24px mdi-school-outline"></i></span>
       </p>
