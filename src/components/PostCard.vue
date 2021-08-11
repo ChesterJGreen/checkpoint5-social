@@ -23,7 +23,7 @@
       </div>
       <div class="row">
         <div class="col-md-6 p-2">
-          <small>{{ post.createdAt }}</small>
+          <small>{{ post.createdAt.toLocaleString('en-US', { timeZone: 'MDT' }) }}</small>
           <small v-if="post.createdAt != post.updatedAt"><br>
             updated: {{ post.updatedAt }}
           </small>

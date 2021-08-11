@@ -2,21 +2,21 @@
   <div class="about text-center mt-5">
     <h3>Welcome</h3>
     <p class="text-wrap">
-      {{ account.email }}
+      {{ account.name }}
     </p>
-    <img class="rounded" :src="account.picture" alt="" />
-    <i v-if="account.graduated=true" class="mdi mdi-24px mdi-school-outline"></i>
+    <img class="rounded w-100" :src="account.picture" alt="" />
+    <i v-if="account.graduated" class="mdi mdi-24px mdi-school-outline"></i>
     <p v-if="account.class">
       {{ account.class }}
     </p>
     <p v-else>
       No Class
     </p>
-    <p v-if="account.name">
-      {{ account.name }}
+    <p v-if="account.bio">
+      {{ account.bio }}
     </p>
     <p v-else>
-      No Name for Account
+      No Bio for account
     </p>
     <p v-if="account.github">
       {{ account.github }}
@@ -49,6 +49,7 @@ import Swal from 'sweetalert2'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
 import { postsService } from '../services/PostsService'
+import { accountService } from "../services/AccountService"
 
 export default {
   name: 'Account',
@@ -56,7 +57,14 @@ export default {
     const state = reactive({
       dropOpen: false,
       newPost: {},
-      accountInfo: {}
+      accountInfo: {
+        name: '',
+        class: '',
+        picture: '',
+        github: '',
+        linkedin: '',
+        resume: ''
+      }
 
     })
     return {
@@ -87,6 +95,13 @@ export default {
               return 'No Picture'
             }
           }
+          const classCoverImg = () => {
+            if (this.account.coverImg) {
+              return this.account.coverImg
+            } else {
+              return 'No Cover Image'
+            }
+          }
           const classGithub = () => {
             if (this.account.github) {
               return this.account.github
@@ -113,37 +128,56 @@ export default {
           const { value: formValues } = await Swal.fire({
             title: 'Edit Account Info',
             html:
-    `<div><label>Name</label> 
-    <input id="editname" placeholder="${this.account.name}" class="swal2-input" v-model="state.accountInfo.name"></div> 
-    <div><label>Class</label> 
-    <input id="editclass"  placeholder="${className()}" class="swal2-input" v-model="state.accountInfo.class"></div> 
-    <div><label>Picture</label> 
-    <input id="editpicture" placeholder="${classPicture()}" class="swal2-input" v-model="state.accountInfo.picture"></div> 
-    <div><label>Github</label> 
-    <input id="editgithub"  placeholder="${classGithub()}" class="swal2-input" v-model="state.accountInfo.github"></div> 
-    <div><label>LinkedIn</label> 
-    <input id="editlinkedin" placeholder="${classLinkedin()}" class="swal2-input" v-model="state.accountInfo.linkedin"></div>
-    <div><label>Resume</label> 
-    <input id="editresume" placeholder="${classResume()}" class="swal2-input" v-model="state.accountInfo.resume"></div>`,
+    `<div class="container"><div class="row">
+      <div class="col-3"><label>Name</label></div>
+      <div class="col-8"><input id="editname" placeholder="${this.account.name}" class="swal2-input" v-model="state.accountInfo.name" value="${this.account.name}"></div> 
+    </div>
+    <div class="row">
+      <div class="col-3"><label>Class</label></div>
+      <div class="col-8"><input id="editclass"  placeholder="${className()}" class="swal2-input" v-model="state.accountInfo.class"></div> 
+    </div>
+    <div class="row">
+      <div class="col-3"><label>Picture</label></div>
+      <div class="col-8"><input id="editpicture" placeholder="${classPicture()}" class="swal2-input" v-model="state.accountInfo.picture"></div> 
+    </div>
+    <div class="row">
+      <div class="col-3"><label>Cover Image</label></div>
+      <div class="col-8"><input id="editCoverImg" placeholder="${classCoverImg()}" class="swal2-input" v-model="state.accountInfo.coverImg"></div> 
+    </div>
+    <div class="row">
+      <div class="col-3"><label>Github</label></div>
+      <div class="col-8"><input id="editgithub" placeholder="${classGithub()}" class="swal2-input" v-model="state.accountInfo.github"></div> 
+    <div class="row">
+      <div class="col-3"><label>LinkedIn</label></div>
+      <div class="col-8"><input id="editlinkedin" placeholder="${classLinkedin()}" class="swal2-input" v-model="state.accountInfo.linkedin"></div>
+    </div>
+    <div class="row">
+      <div class="col-3"><label>Resume</label></div>
+      <div class="col-8"><input id="editresume" placeholder="${classResume()}" class="swal2-input" v-model="state.accountInfo.resume"></div>
+    </div></div>`,
             focusConfirm: false,
             preConfirm: () => {
-              return [
-                document.getElementById('editname').value,
-                document.getElementById('editpicture').value,
-                document.getElementById('editgithub').value,
-                document.getElementById('editlinkedin').value,
-                document.getElementById('editresume').value,
-                document.getElementById('editclass').value
-              ]
+              return {
+                name: document.getElementById('editname').value === '' && this.account.name !== '' ? this.account.name : document.getElementById('editname').value,
+                picture: document.getElementById('editpicture').value === '' && this.account.picture !== '' ? this.account.picture : document.getElementById('editpicture').value,
+                coverImg: document.getElementById('editCoverImg').value === '' && this.account.coverImg !== '' ? this.account.coverImg : document.getElementById('editCoverImg').value,
+                github: document.getElementById('editgithub').value === '' && this.account.github !== '' ? this.account.github : document.getElementById('editgithub').value,
+                linkedin: document.getElementById('editlinkedin').value === '' && this.account.linkedin !== '' ? this.account.linkedin : document.getElementById('editlinkedin').value,
+                resume: document.getElementById('editresume').value === '' && this.account.resume !== '' ? this.account.resume : document.getElementById('editresume').value,
+                class: document.getElementById('editclass').value === '' && this.account.class !== '' ? this.account.class : document.getElementById('editclass').value
+              }
             }
           })
-
+          logger.log(JSON.stringify(formValues))
           if (formValues) {
-            Swal.fire(formValues)
-            this.editAccount(state.accountInfo)
+            Swal.fire('Account Info Updated')
           }
+          state.accountInfo = formValues
+          await accountService.editAccount(formValues)
+          logger.log(state.accountInfo.name)
         } catch (e) {
           Pop.toast("Didn't work" + e, 'error')
+          console.log(e)
         }
       }
     }
@@ -181,4 +215,5 @@ body.swal2-shown > [aria-hidden="true"] {
 body > * {
   transition: 0.1s filter linear;
 }
+
 </style>

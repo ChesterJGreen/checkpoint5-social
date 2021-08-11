@@ -13,9 +13,9 @@ class AccountService {
     }
   }
 
-  async editAccount() {
+  async editAccount(values) {
     try {
-      const res = await api.put('/account')
+      const res = await api.put('account', values)
       AppState.account = res.data
     } catch (e) {
       Pop.toast('you must be logged in to do this ' + e, 'error')
