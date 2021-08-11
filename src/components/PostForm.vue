@@ -2,7 +2,7 @@
   <div id="post-form" class="card shadow col-md-12 p-4 mb-2">
     <div class="row">
       <div class="col-md-2 m-auto">
-        <img :src="account.picture" class="w-100" :alt="account.name">
+        <img :src="account.picture" class="w-100 rounded-pill" :alt="account.name">
       </div>
       <div class="col-md-8 m-auto p-2">
         <div class="form-group">

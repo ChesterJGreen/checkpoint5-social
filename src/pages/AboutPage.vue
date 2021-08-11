@@ -4,7 +4,7 @@
     <p class="text-wrap">
       {{ account.email }}
     </p>
-    <img class="rounded w-25 align-self-center" :src="account.picture" alt="" />
+    <img class="rounded-pill w-25 align-self-center" :src="account.picture" alt="" />
     <p v-if="account.class">
       {{ account.class }}
     </p>

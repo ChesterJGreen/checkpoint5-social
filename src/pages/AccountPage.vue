@@ -129,32 +129,33 @@ export default {
             title: 'Edit Account Info',
             html:
     `<div class="container"><div class="row">
-      <div class="col-3"><label>Name</label></div>
-      <div class="col-8"><input id="editname" placeholder="${this.account.name}" class="swal2-input" v-model="state.accountInfo.name" value="${this.account.name}"></div> 
+      <div class="col-3 p-0 align-self-center"><label>Name</label></div>
+      <div class="col-8 p-0"><input id="editname" placeholder="${this.account.name}" class="swal2-input m-0" v-model="state.accountInfo.name" value="${this.account.name}"></div> 
     </div>
-    <div class="row">
-      <div class="col-3"><label>Class</label></div>
-      <div class="col-8"><input id="editclass"  placeholder="${className()}" class="swal2-input" v-model="state.accountInfo.class"></div> 
+    <div class="row my-3">
+      <div class="col-3 p-0 align-self-center"><label>Class</label></div>
+      <div class="col-8 p-0"><input id="editclass"  placeholder="${className()}" class="swal2-input m-0" v-model="state.accountInfo.class"></div> 
     </div>
-    <div class="row">
-      <div class="col-3"><label>Picture</label></div>
-      <div class="col-8"><input id="editpicture" placeholder="${classPicture()}" class="swal2-input" v-model="state.accountInfo.picture"></div> 
+    <div class="row my-3">
+      <div class="col-3 p-0 align-self-center"><label>Picture</label></div>
+      <div class="col-8 p-0"><input id="editpicture" placeholder="${classPicture()}" class="swal2-input m-0" v-model="state.accountInfo.picture"></div> 
     </div>
-    <div class="row">
-      <div class="col-3"><label>Cover Image</label></div>
-      <div class="col-8"><input id="editCoverImg" placeholder="${classCoverImg()}" class="swal2-input" v-model="state.accountInfo.coverImg"></div> 
+    <div class="row my-3">
+      <div class="col-3 p-0 align-self-center"><label>Cover Image</label></div>
+      <div class="col-8 p-0"><input id="editCoverImg" placeholder="${classCoverImg()}" class="swal2-input m-0" v-model="state.accountInfo.coverImg"></div> 
     </div>
-    <div class="row">
-      <div class="col-3"><label>Github</label></div>
-      <div class="col-8"><input id="editgithub" placeholder="${classGithub()}" class="swal2-input" v-model="state.accountInfo.github"></div> 
-    <div class="row">
-      <div class="col-3"><label>LinkedIn</label></div>
-      <div class="col-8"><input id="editlinkedin" placeholder="${classLinkedin()}" class="swal2-input" v-model="state.accountInfo.linkedin"></div>
+    <div class="row my-3">
+      <div class="col-3 p-0 align-self-center"><label>Github</label></div>
+      <div class="col-8 p-0"><input id="editgithub" placeholder="${classGithub()}" class="swal2-input m-0" v-model="state.accountInfo.github"></div>
     </div>
-    <div class="row">
-      <div class="col-3"><label>Resume</label></div>
-      <div class="col-8"><input id="editresume" placeholder="${classResume()}" class="swal2-input" v-model="state.accountInfo.resume"></div>
-    </div></div>`,
+    <div class="row my-3">
+      <div class="col-3 p-0 align-self-center"><label>LinkedIn</label></div>
+      <div class="col-8 p-0"><input id="editlinkedin" placeholder="${classLinkedin()}" class="swal2-input m-0" v-model="state.accountInfo.linkedin"></div>
+    </div>
+    <div class="row my-3">
+      <div class="col-3 p-0 align-self-center"><label>Resume</label></div>
+      <div class="col-8 p-0"><input id="editresume" placeholder="${classResume()}" class="swal2-input m-0" v-model="state.accountInfo.resume"></div>
+    </div>`,
             focusConfirm: false,
             preConfirm: () => {
               return {
