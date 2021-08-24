@@ -4,7 +4,7 @@
     <p class="text-wrap">
       {{ account.name }}
     </p>
-    <img class="rounded w-100" :src="account.picture" alt="" />
+    <img class="rounded-circle w-100" :src="account.picture" alt="" />
     <i v-if="account.graduated" class="mdi mdi-24px mdi-school-outline"></i>
     <p v-if="account.class">
       {{ account.class }}
