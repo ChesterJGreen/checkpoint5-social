@@ -4,7 +4,7 @@
     <p class="text-wrap">
       {{ account.name }}
     </p>
-    <img class="rounded-circle w-100" :src="account.picture" alt="" />
+    <img class="rounded-circle w-25" :src="account.picture" alt="" />
     <i v-if="account.graduated" class="mdi mdi-24px mdi-school-outline"></i>
     <p v-if="account.class">
       {{ account.class }}
@@ -19,10 +19,10 @@
       No Bio for account
     </p>
     <p v-if="account.github">
-      {{ account.github }}
+      <i class="mdi mdi-github" />{{ account.github }}
     </p>
     <p v-else>
-      No Github for Account
+      No <i class="mdi mdi-github" /> for Account
     </p>
     <p v-if="account.linkedin">
       {{ account.linkedin }}
@@ -49,7 +49,7 @@ import Swal from 'sweetalert2'
 import Pop from '../utils/Notifier'
 import { logger } from '../utils/Logger'
 import { postsService } from '../services/PostsService'
-import { accountService } from "../services/AccountService"
+import { accountService } from '../services/AccountService'
 
 export default {
   name: 'Account',
