@@ -18,22 +18,22 @@
       No Name for Account
     </p>
     <p v-if="account.github">
-      {{ account.github }}
+      {{ account.github }} <i class="mdi mdi-github" />
     </p>
     <p v-else>
-      No Github for Account
+      No Github for Account <i class="mdi mdi-github" />
     </p>
     <p v-if="account.linkedin">
-      {{ account.linkedin }}
+      {{ account.linkedin }} <i class="mdi mdi-linkedin" />
     </p>
     <p v-else>
-      No LinkedIn for Account
+      No LinkedIn for Account <i class="mdi mdi-linkedin" />
     </p>
     <p v-if="account.resume">
-      {{ account.resume }}
+      {{ account.resume }} <i class="mdi mdi-notebook" />
     </p>
     <p v-else>
-      No Resume for Account
+      No Resume for Account <i class="mdi mdi-notebook" />
     </p>
   </div>
 </template>

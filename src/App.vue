@@ -31,7 +31,6 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { AppState } from './AppState'
-import UserPage from './pages/UserPage.vue'
 import AidsThread from './components/AidsThread.vue'
 import { aidsService } from './services/AidsService'
 import Pop from './utils/Notifier'
