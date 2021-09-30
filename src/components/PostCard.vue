@@ -1,5 +1,5 @@
 <template>
-  <div id="post" class="post-card row card shadow my-2">
+  <div id="post" class="post-card row card shadow my-2 px-3">
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-2 m-3 d-sm-2">

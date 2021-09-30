@@ -1,11 +1,11 @@
 <template>
   <div id="profile" class="col-md-12 profile-card card shadow my-5">
-    <div v-if="profile" class="about text-center">
+    <div v-if="profile" class="about text-center p-3">
       <h3>Welcome</h3>
       <p class="text-wrap">
         {{ profile.name }}
       </p>
-      <img class="rounded-pill w-50" :src="profile.picture" alt="" />
+      <img class="rounded-pill w-25" :src="profile.picture" alt="" />
       <p v-if="profile.class">
         {{ profile.class }} : <span v-if="profile.graduated"><i class="mdi mdi-24px mdi-school-outline"></i></span>
       </p>
