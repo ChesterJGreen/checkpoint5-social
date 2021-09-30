@@ -25,16 +25,16 @@
       No <i class="mdi mdi-github" /> for Account
     </p>
     <p v-if="account.linkedin">
-      {{ account.linkedin }}
+      <i class="mdi mdi-linkedin" />{{ account.linkedin }}
     </p>
     <p v-else>
-      No LinkedIn for Account
+      No <i class="mdi mdi-linkedin" /> for Account
     </p>
     <p v-if="account.resume">
-      {{ account.resume }}
+      <i class="mdi mdi-notebook" />{{ account.resume }}
     </p>
     <p v-else>
-      No Resume for Account
+      No <i class="mdi mdi-notebook" />Resume for Account
     </p>
     <button type="submit" @click.prevent="updateUser" aria-hidden="true" class="btn btn-primary action">
       Edit
